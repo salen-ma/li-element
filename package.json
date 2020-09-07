@@ -1,0 +1,16 @@
+{
+  "name": "li-element",
+  "version": "0.0.1",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "vue": "^2.6.12",
+    "vue-template-compiler": "^2.6.12"
+  }
+}
