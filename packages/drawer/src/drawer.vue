@@ -1,23 +1,30 @@
 <template>
-  <div
-    class="li-drawer"
-    :class="[
-      `li-drawer--${placement}`,
-      {
-        'li-drawer--open': visible
-      }
-    ]"
-  >
-    <div class="li-drawer-mask"></div>
-    <div 
-      class="li-drawer-content" 
-      :style="{
-        width: width + 'px'
-      }"
+  <transition
+    name="el-drawer-fade"
+    @after-enter="afterEnter"
+    @after-leave="afterLeave">
+    <div
+      v-show="visible"
+      class="li-drawer"
+      :class="[
+        `li-drawer--${placement}`,
+        {
+          'li-drawer--open': visible
+        }
+      ]"
     >
+      <div 
+        class="li-drawer-mask"
+        @click.self="close"
+      ></div>
+      <div 
+        class="li-drawer-content" 
+        :style="contentStyle"
+      >
+      </div>
+      <slot></slot>
     </div>
-    <slot></slot>
-  </div>
+  </transition>  
 </template>
 
 <script>
@@ -35,8 +42,46 @@ export default {
     width: {
       type: Number,
       default: 500
+    },
+    height: {
+      type: Number,
+      default: 220
+    },
+    onClose: {
+      type: Function
     }
   },
+
+  computed: {
+    contentStyle () {
+      if (this.placement === 'left' || this.placement === 'right') {
+        return {
+          width: this.width + 'px',
+          height: '100%',
+        }
+      }
+
+      if (this.placement === 'top' || this.placement === 'bottom') {
+        return {
+          width: '100%',
+          height: this.height + 'px',
+        }
+      }
+    }
+  },
+
+  methods: {
+    afterEnter() {
+      this.$emit('opened');
+    },
+    afterLeave() {
+      this.$emit('closed');
+    },
+    close () {
+      this.$emit('update:visible', false);
+      this.onClose && this.onClose()	
+    }
+  }
 }
 </script>
 
@@ -78,6 +123,7 @@ export default {
   }
   &--open {
     width: 100%;
+    height: 100%;
     .li-drawer-mask {
       height: 100%;
       opacity: 1;
@@ -96,15 +142,50 @@ export default {
   width: 100%;
   height: 0;
   background-color: rgba(0,0,0,.45);
-  opacity: 0;
-  filter: alpha(opacity=45);
-  -webkit-transition: opacity .3s linear,height 0s ease .3s;
-  transition: opacity .3s linear,height 0s ease .3s;
+  transition: opacity .3s;
   pointer-events: none;
 }
 .li-drawer-content {
   position: absolute;
   background: #ffffff;
   height: 100%;
+  transition: all .3s;
+}
+
+.el-drawer-fade-enter-active, .el-drawer-fade-leave-active {
+  transition: .3s;
+  .li-drawer-mask {
+    opacity: 1;
+  }
+  &.li-drawer--right {
+    .li-drawer-content {
+      transform: translateX(0) translateY(0);
+    }
+  }
+}
+.el-drawer-fade-enter, .el-drawer-fade-leave-to {
+  .li-drawer-mask {
+    opacity: 0;
+  }
+  &.li-drawer--top {
+    .li-drawer-content {
+      transform: translateY(-100%);
+    }
+  }
+  &.li-drawer--right {
+    .li-drawer-content {
+      transform: translateX(100%);
+    }
+  }
+  &.li-drawer--bottom {
+    .li-drawer-content {
+      transform: translateY(100%);
+    }
+  }
+  &.li-drawer--left {
+    .li-drawer-content {
+      transform: translateX(-100%);
+    }
+  }
 }
 </style>

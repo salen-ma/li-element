@@ -11,20 +11,38 @@ export const Drawer = () => ({
   template: `
     <div>
       <div class="row li-button">
-        <li-button type="primary"
-          @click="open">Open drawer</li-button>
+        <li-button 
+          type="primary"
+          @click="open('top')">Top drawer</li-button>
+        <li-button 
+          type="primary"
+          @click="open('right')">Right drawer</li-button>
+        <li-button 
+          type="primary"
+          @click="open('bottom')">Bottom drawer</li-button>
+        <li-button 
+          type="primary"
+          @click="open('left')">Left drawer</li-button>    
       </div>
-      <li-drawer :visible="visible" />
+      <li-drawer 
+        :visible="visible"
+        :placement="placement"
+        :onClose="this.close" />
     </div>
   `,
   data () {
     return {
-      visible: false
+      visible: false,
+      placement: 'top',
     }
   },
   methods: {
-    open () {
+    open (placement) {
+      this.placement = placement
       this.visible = true
+    },
+    close () {
+      this.visible = false
     }
   }
 })
