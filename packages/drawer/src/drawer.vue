@@ -15,14 +15,37 @@
     >
       <div 
         class="li-drawer-mask"
+        :style="maskStyle"
         @click.self="close"
       ></div>
       <div 
         class="li-drawer-content" 
-        :style="contentStyle"
+        :style="{
+          ...contentStyle,
+          ...drawerStyle
+        }"
       >
+        <div v-if="title"
+          class="li-drawer-header"
+          :style="headerStyle"
+        >
+          {{ title }}
+        </div>
+        <slot name="title"></slot>
+        <div
+          class="li-drawer-body"
+          :style="bodyStyle"
+        >
+          <slot></slot>
+        </div>
+        <div
+          v-if="this.$slots.footer"
+          class="li-drawer-footer"
+          :style="footerStyle"
+        >
+          <slot name="footer"></slot>
+        </div>
       </div>
-      <slot></slot>
     </div>
   </transition>  
 </template>
@@ -41,7 +64,7 @@ export default {
     },
     width: {
       type: Number,
-      default: 500
+      default: 300
     },
     height: {
       type: Number,
@@ -49,7 +72,30 @@ export default {
     },
     onClose: {
       type: Function
-    }
+    },
+    title: {
+      type: String
+    },
+    maskStyle: {
+      type: Object,
+      default: () => {}
+    },
+    headerStyle: {
+      type: Object,
+      default: () => {}
+    },
+    bodyStyle: {
+      type: Object,
+      default: () => {}
+    },
+    drawerStyle: {
+      type: Object,
+      default: () => {}
+    },
+    footerStyle: {
+      type: Object,
+      default: () => {}
+    },
   },
 
   computed: {
@@ -126,11 +172,6 @@ export default {
     height: 100%;
     .li-drawer-mask {
       height: 100%;
-      opacity: 1;
-      -webkit-transition: none;
-      transition: none;
-      -webkit-animation: antdDrawerFadeIn .3s cubic-bezier(.7,.3,.1,1);
-      animation: antdDrawerFadeIn .3s cubic-bezier(.7,.3,.1,1);
       pointer-events: auto;
     }
   }
@@ -150,6 +191,22 @@ export default {
   background: #ffffff;
   height: 100%;
   transition: all .3s;
+  .li-drawer-header {
+    padding: 16px 24px;
+    border-bottom: 1px solid #f0f0f0;
+  }
+  .li-drawer-body {
+    padding: 16px 24px;
+  }
+  .li-drawer-footer {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 16px 24px;
+    border-top: 1px solid #f0f0f0;
+  }
 }
 
 .el-drawer-fade-enter-active, .el-drawer-fade-leave-active {
