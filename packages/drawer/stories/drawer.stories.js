@@ -26,6 +26,7 @@ export const Drawer = () => ({
       </div>
       <li-drawer 
         title="basic drawer"
+        :width="600"
         :visible="visible"
         :placement="placement"
         :onClose="this.close"
@@ -33,9 +34,15 @@ export const Drawer = () => ({
           display: 'flex',
           flexDirection: 'row-reverse'
         }">
+        <li-button @click="innerDrawer = true">打开里面的!</li-button>
         <p>Some contents...</p>
         <p>Some contents...</p>
         <p>Some contents...</p>
+        <li-drawer 
+          title="inner drawer"
+          :visible.sync="innerDrawer"
+        >
+        </li-drawer>
         <template v-slot:footer>
           <li-button 
             type="primary"
@@ -54,6 +61,7 @@ export const Drawer = () => ({
   data () {
     return {
       visible: false,
+      innerDrawer: false,
       placement: 'top',
     }
   },

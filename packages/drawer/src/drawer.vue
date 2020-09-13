@@ -68,7 +68,7 @@ export default {
     },
     height: {
       type: Number,
-      default: 220
+      default: 300
     },
     onClose: {
       type: Function
@@ -96,6 +96,24 @@ export default {
       type: Object,
       default: () => {}
     },
+    appendToBody: {
+      type: Boolean,
+      default: true
+    }
+  },
+
+  watch: {
+    visible(val) {
+      if (val) {
+        this.closed = false;
+        this.$emit('open');
+        if (this.appendToBody) {
+          document.body.appendChild(this.$el);
+        }
+      } else {
+        if (!this.closed) this.$emit('close');
+      }
+    }
   },
 
   computed: {
@@ -190,6 +208,7 @@ export default {
   position: absolute;
   background: #ffffff;
   height: 100%;
+  box-sizing: border-box;
   transition: all .3s;
   .li-drawer-header {
     padding: 16px 24px;
