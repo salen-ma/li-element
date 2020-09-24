@@ -1,18 +1,14 @@
 {
-  "name": "li-element",
+  "private": true,
   "version": "0.0.1",
-  "description": "",
-  "main": "index.js",
+  "workspaces": [
+    "packages/*"
+  ],
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "storybook": "start-storybook -p 6006",
-    "build-storybook": "build-storybook"
-  },
-  "keywords": [],
-  "author": {
-    "name": "mashaoliang",
-    "email": "salen.ma@qq.com",
-    "url": "https://github.com/salen-ma"
+    "build-storybook": "build-storybook",
+    "lerna": "lerna publish"
   },
   "license": "MIT",
   "dependencies": {
@@ -26,10 +22,12 @@
     "@storybook/vue": "^6.0.21",
     "babel-loader": "^8.1.0",
     "css-loader": "^4.3.0",
+    "lerna": "^3.22.1",
     "sass": "^1.26.10",
     "sass-loader": "^10.0.2",
     "style-loader": "^1.2.1",
     "vue-loader": "^15.9.3",
     "vue-template-compiler": "^2.6.12"
-  }
+  },
+  "name": "li-element"
 }
