@@ -1,0 +1,34 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`li-drawer drawer snapshot 1`] = `
+<transition-stub
+  name="el-drawer-fade"
+>
+  <div
+    class="li-drawer li-drawer--right li-drawer--open"
+  >
+    <div
+      class="li-drawer-mask"
+    />
+     
+    <div
+      class="li-drawer-content"
+      style="width: 300px; height: 100%;"
+    >
+      <div
+        class="li-drawer-header"
+      >
+        
+        basic drawer
+      
+      </div>
+        
+      <div
+        class="li-drawer-body"
+      />
+       
+      <!---->
+    </div>
+  </div>
+</transition-stub>
+`;
