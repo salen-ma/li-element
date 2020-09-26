@@ -1,6 +1,10 @@
 {
   "name": "li-button",
   "version": "0.0.1",
-  "main": "index.js",
-  "license": "MIT"
+  "main": "dist/cjs/index.js",
+  "module": "dist/es/index.js",
+  "license": "MIT",
+  "scripts": {
+    "del": "rimraf dist"
+  }
 }
